@@ -1,0 +1,63 @@
+package de.jpp.io;
+
+import de.jpp.factory.GraphFactory;
+import de.jpp.model.LabelMapGraph;
+import de.jpp.model.XYNode;
+import org.jdom2.Element;
+
+import java.util.Map;
+import java.util.Optional;
+
+public class LabelMapGraphGxlReader extends GxlReaderTemplate<String, Map<String, String>, LabelMapGraph, String> { //todo hab keine Ahnung wie Node, Edge instanziert sein sollen?!?!?!?
+    @Override
+    public LabelMapGraph createGraph() {
+        GraphFactory graphFactory = new GraphFactory();
+        return graphFactory.createNewLabelMapGraph();
+    }
+
+    @Override
+    public String readNodeId(String node, Element element) {
+        return element.getAttributeValue("id");
+    }
+
+    @Override
+    public String readNode(Element element) {
+        String description = "";
+        for (Element child : element.getChildren()){
+            String temp = child.getAttributeValue("name");
+            if (temp.equals("description")){
+                description = child.getChildText("string");
+            }else {
+                throw new IllegalArgumentException("node's attribute couldn't be defined");
+            }
+
+
+        }
+        return description;
+    }
+
+    @Override
+    public Optional<Map<String, String>> readAnnotation(Element element) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void addEdge(LabelMapGraph graph, Element element, Map<String, String> map){
+        try {
+            String start = map.get(element.getAttributeValue("from"));
+            String  dest = map.get(element.getAttributeValue("to"));
+            Optional<Map<String ,String>> annotation = Optional.empty();
+            for (Element child: element.getChildren()){
+                if (child.getAttributeValue("name").equals("cost")){
+                    annotation = readAnnotation(element);
+                }
+            }
+            graph.addEdge(start,dest,annotation);
+
+        }catch (Exception e){
+            throw new IllegalArgumentException("GXL-File is invalid");
+        }
+    }
+
+
+}

@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7e726bfd-ae55-4bf2-a343-b2af39894dce" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/jpp/algorithm/BreadthFirstSearchTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/jpp/algorithm/BreadthFirstSearchTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/jpp/algorithm/DijkstraSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/jpp/algorithm/DijkstraSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/jpp/algorithm/SearchResultImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/jpp/algorithm/SearchResultImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/jpp/io/GxlWriterTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/jpp/io/GxlWriterTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/jpp/io/TwoDimGraphDotIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/jpp/io/TwoDimGraphDotIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/jpp/model/XYNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/jpp/model/XYNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/GUI.java" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>label</find>
+      <find>ispre</find>
+      <find>this.wid</find>
+      <find>Math</find>
+      <find>new Buffer</find>
+      <find>syste</find>
+      <find>node is not in the</find>
+      <find>strategy.sto</find>
+      <find>getPath</find>
+      <find>getpath</find>
+      <find>start</find>
+      <find>get</find>
+      <find>getSearchRes</find>
+      <find>implements Wei</find>
+      <find>Weigh</find>
+      <find>replace</find>
+      <find>Nullpo</find>
+      <find>readAll</find>
+      <find>speed</find>
+      <find>matcher.find()</find>
+      <find>controller</find>
+      <find>public buff</find>
+      <find>throw</find>
+      <find>try</find>
+      <find>null</find>
+      <find>removeIf</find>
+      <find>Lis</find>
+      <find>Listener</find>
+      <find>getTwoDimGxlReader</find>
+      <find>getTwoDimImgReader</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+  </component>
+  <component name="ProjectId" id="1SshGtqeXnOMkOT29MxBOWUhret" />
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554409693132" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="last.edited.regexp" value="digraph{&#10;&#9;1 [x=0 y=1 label=&quot;annoying      1 -&gt; 7  1 [x===6][197]}\//&quot;]&#10;}" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.15429688" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="de.jpp.io" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.GUI">
+    <configuration name="DijkstraSearch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="de.jpp.algorithm.DijkstraSearch" />
+      <module name="Graphs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.jpp.algorithm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="gui.GUI" />
+      <module name="Graphs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SearchFactory" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="de.jpp.factory.SearchFactory" />
+      <module name="Graphs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.jpp.factory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestDFS" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="de.jpp.algorithm.interfaces.TestDFS" />
+      <module name="Graphs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.jpp.algorithm.interfaces.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TwoDimGraphDotIO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="de.jpp.io.TwoDimGraphDotIO" />
+      <module name="Graphs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.jpp.io.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GUI" />
+        <item itemvalue="Application.DijkstraSearch" />
+        <item itemvalue="Application.TwoDimGraphDotIO" />
+        <item itemvalue="Application.TestDFS" />
+        <item itemvalue="Application.SearchFactory" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\s353177\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\Users\s353177\IdeaProjects\Graphs" />
+          <option name="myCopyRoot" value="C:\Users\s353177\IdeaProjects\Graphs" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\Users\s353177\IdeaProjects\Graphs" />
+          <option name="myCopyRoot" value="C:\Users\s353177\IdeaProjects\Graphs" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7e726bfd-ae55-4bf2-a343-b2af39894dce" name="Default Changelist" comment="" />
+      <created>1551699258609</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551699258609</updated>
+      <workItem from="1551699260010" duration="6453000" />
+      <workItem from="1551716296451" duration="1368000" />
+      <workItem from="1551717725228" duration="790000" />
+      <workItem from="1551721182173" duration="10074000" />
+      <workItem from="1551732156987" duration="2693000" />
+      <workItem from="1551786988843" duration="19729000" />
+      <workItem from="1551813750455" duration="2945000" />
+      <workItem from="1551865848196" duration="16364000" />
+      <workItem from="1551949302206" duration="27283000" />
+      <workItem from="1552036914721" duration="6704000" />
+      <workItem from="1552059165844" duration="13541000" />
+      <workItem from="1552127671323" duration="15511000" />
+      <workItem from="1552161275171" duration="12722000" />
+      <workItem from="1552208892718" duration="673000" />
+      <workItem from="1552215786329" duration="19360000" />
+      <workItem from="1552298923981" duration="10486000" />
+      <workItem from="1552315394856" duration="16818000" />
+      <workItem from="1552339662951" duration="3883000" />
+      <workItem from="1552385696387" duration="8033000" />
+      <workItem from="1552426776686" duration="2822000" />
+      <workItem from="1552487740372" duration="3712000" />
+      <workItem from="1552505594550" duration="2312000" />
+      <workItem from="1552676338950" duration="2970000" />
+      <workItem from="1552764639383" duration="1079000" />
+      <workItem from="1552810935252" duration="26996000" />
+      <workItem from="1552904392272" duration="29485000" />
+      <workItem from="1552990618401" duration="910000" />
+      <workItem from="1552991557443" duration="6744000" />
+      <workItem from="1553022549009" duration="598000" />
+      <workItem from="1553023895733" duration="8478000" />
+      <workItem from="1553072258035" duration="8536000" />
+      <workItem from="1553088375583" duration="12340000" />
+      <workItem from="1553160316019" duration="7837000" />
+      <workItem from="1553181543709" duration="17595000" />
+      <workItem from="1553238626235" duration="2967000" />
+      <workItem from="1553245952179" duration="7192000" />
+      <workItem from="1553266980125" duration="3041000" />
+      <workItem from="1553290569044" duration="486000" />
+      <workItem from="1553348700727" duration="9000" />
+      <workItem from="1553348750187" duration="7814000" />
+      <workItem from="1553365862560" duration="1757000" />
+      <workItem from="1553524915267" duration="1373000" />
+      <workItem from="1553599040196" duration="6581000" />
+      <workItem from="1553690131125" duration="10204000" />
+      <workItem from="1553707248351" duration="868000" />
+      <workItem from="1553714963063" duration="5294000" />
+      <workItem from="1553770159531" duration="1892000" />
+      <workItem from="1553806979149" duration="1176000" />
+      <workItem from="1553960654628" duration="174000" />
+      <workItem from="1554113762167" duration="756000" />
+      <workItem from="1554123338656" duration="370000" />
+      <workItem from="1554129773070" duration="879000" />
+      <workItem from="1554158274721" duration="711000" />
+      <workItem from="1554211716242" duration="1573000" />
+      <workItem from="1554227328535" duration="3686000" />
+      <workItem from="1554234206967" duration="2819000" />
+      <workItem from="1554303761429" duration="10678000" />
+      <workItem from="1554359013249" duration="441000" />
+      <workItem from="1554371082180" duration="4379000" />
+      <workItem from="1554402667976" duration="5552000" />
+      <workItem from="1554578530819" duration="186000" />
+      <workItem from="1555339390848" duration="317000" />
+      <workItem from="1555764260005" duration="679000" />
+      <workItem from="1555851516817" duration="21000" />
+      <workItem from="1555853446642" duration="644000" />
+      <workItem from="1557059178359" duration="1250000" />
+      <workItem from="1557402633146" duration="809000" />
+      <workItem from="1558732047978" duration="454000" />
+      <workItem from="1560357392337" duration="1332000" />
+      <workItem from="1560384221531" duration="92000" />
+      <workItem from="1560424249847" duration="417000" />
+      <workItem from="1563468831482" duration="401000" />
+      <workItem from="1572358118901" duration="1790000" />
+    </task>
+    <task id="LOCAL-00051" summary="MazeImpl">
+      <created>1552909966892</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1552909966892</updated>
+    </task>
+    <task id="LOCAL-00052" summary="MazeImpl">
+      <created>1552910012648</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1552910012648</updated>
+    </task>
+    <task id="LOCAL-00053" summary="MazeImpl">
+      <created>1552910090309</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1552910090309</updated>
+    </task>
+    <task id="LOCAL-00054" summary="VWall">
+      <created>1552910141642</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1552910141642</updated>
+    </task>
+    <task id="LOCAL-00055" summary="VWall">
+      <created>1552910337501</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1552910337501</updated>
+    </task>
+    <task id="LOCAL-00056" summary="VWall">
+      <created>1552919699279</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1552919699279</updated>
+    </task>
+    <task id="LOCAL-00057" summary="equals">
+      <created>1552919963887</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1552919963887</updated>
+    </task>
+    <task id="LOCAL-00058" summary="equals">
+      <created>1552920232262</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1552920232262</updated>
+    </task>
+    <task id="LOCAL-00059" summary="equals">
+      <created>1552920820341</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1552920820341</updated>
+    </task>
+    <task id="LOCAL-00060" summary="DFS">
+      <created>1553072284972</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1553072284972</updated>
+    </task>
+    <task id="LOCAL-00061" summary="DFS">
+      <created>1553074607742</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1553074607742</updated>
+    </task>
+    <task id="LOCAL-00062" summary="DFS">
+      <created>1553074917526</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1553074917526</updated>
+    </task>
+    <task id="LOCAL-00063" summary="DFS">
+      <created>1553079235097</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1553079235097</updated>
+    </task>
+    <task id="LOCAL-00064" summary="DFS">
+      <created>1553079913937</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1553079913937</updated>
+    </task>
+    <task id="LOCAL-00065" summary="DFS">
+      <created>1553080285146</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1553080285146</updated>
+    </task>
+    <task id="LOCAL-00066" summary="DFS">
+      <created>1553080454347</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1553080454347</updated>
+    </task>
+    <task id="LOCAL-00067" summary="DFS">
+      <created>1553080924484</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1553080924484</updated>
+    </task>
+    <task id="LOCAL-00068" summary="DFS">
+      <created>1553081191342</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1553081191342</updated>
+    </task>
+    <task id="LOCAL-00069" summary="DFS">
+      <created>1553088954247</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1553088954248</updated>
+    </task>
+    <task id="LOCAL-00070" summary="imageReader">
+      <created>1553089457834</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1553089457834</updated>
+    </task>
+    <task id="LOCAL-00071" summary="imageReader">
+      <created>1553089615810</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1553089615810</updated>
+    </task>
+    <task id="LOCAL-00072" summary="imageReader">
+      <created>1553090170713</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1553090170713</updated>
+    </task>
+    <task id="LOCAL-00073" summary="DFS">
+      <created>1553092372438</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1553092372438</updated>
+    </task>
+    <task id="LOCAL-00074" summary="DFS">
+      <created>1553119004750</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1553119004750</updated>
+    </task>
+    <task id="LOCAL-00075" summary="DFS -&gt; clear()">
+      <created>1553119324653</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1553119324653</updated>
+    </task>
+    <task id="LOCAL-00076" summary="DFS -&gt; clear()">
+      <created>1553119371375</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1553119371375</updated>
+    </task>
+    <task id="LOCAL-00077" summary="DFS">
+      <created>1553185150030</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1553185150032</updated>
+    </task>
+    <task id="LOCAL-00078" summary="DFS">
+      <created>1553191185052</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1553191185052</updated>
+    </task>
+    <task id="LOCAL-00079" summary="DFS">
+      <created>1553195332004</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1553195332004</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Dijkstra">
+      <created>1553202598878</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1553202598878</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Dijkstra">
+      <created>1553204943080</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1553204943080</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Dijkstra">
+      <created>1553205742581</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1553205742581</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Dijkstra">
+      <created>1553207130667</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1553207130667</updated>
+    </task>
+    <task id="LOCAL-00084" summary="AStar">
+      <created>1553246132730</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1553246132731</updated>
+    </task>
+    <task id="LOCAL-00085" summary="BFS">
+      <created>1553246656373</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1553246656373</updated>
+    </task>
+    <task id="LOCAL-00086" summary="BFS">
+      <created>1553246732491</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1553246732491</updated>
+    </task>
+    <task id="LOCAL-00087" summary="BFS">
+      <created>1553247252646</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1553247252647</updated>
+    </task>
+    <task id="LOCAL-00088" summary="TStar">
+      <created>1553249517523</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1553249517523</updated>
+    </task>
+    <task id="LOCAL-00089" summary="DFS">
+      <created>1553251688421</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1553251688421</updated>
+    </task>
+    <task id="LOCAL-00090" summary="BFS">
+      <created>1553253618266</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1553253618266</updated>
+    </task>
+    <task id="LOCAL-00091" summary="BFS">
+      <created>1553267969115</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1553267969117</updated>
+    </task>
+    <task id="LOCAL-00092" summary="BFS">
+      <created>1553268083940</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1553268083940</updated>
+    </task>
+    <task id="LOCAL-00093" summary="BFS">
+      <created>1553268616645</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1553268616645</updated>
+    </task>
+    <task id="LOCAL-00094" summary="BFS">
+      <created>1553268829482</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1553268829483</updated>
+    </task>
+    <task id="LOCAL-00095" summary="BFS">
+      <created>1553694051711</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1553694051712</updated>
+    </task>
+    <task id="LOCAL-00096" summary="BFS">
+      <created>1553694168444</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1553694168444</updated>
+    </task>
+    <task id="LOCAL-00097" summary="BFS">
+      <created>1553695470543</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1553695470543</updated>
+    </task>
+    <task id="LOCAL-00098" summary="BFS">
+      <created>1553695530953</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1553695530953</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Finally">
+      <created>1553696982550</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1553696982550</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="TwoDimGraphGxlReader" />
+    <MESSAGE value="TwoDimGraphDotIO" />
+    <MESSAGE value="equals &amp; Hashcode" />
+    <MESSAGE value="ParseException" />
+    <MESSAGE value="GXLWriter" />
+    <MESSAGE value="DOT" />
+    <MESSAGE value="GXLReader" />
+    <MESSAGE value="Equals" />
+    <MESSAGE value="LabelMapGraphGxlWriterReader" />
+    <MESSAGE value="ImgReader" />
+    <MESSAGE value="MazeReader" />
+    <MESSAGE value="Maze" />
+    <MESSAGE value="MazeImpl" />
+    <MESSAGE value="VWall" />
+    <MESSAGE value="equals" />
+    <MESSAGE value="imageReader" />
+    <MESSAGE value="DFS -&gt; clear()" />
+    <MESSAGE value="Dijkstra" />
+    <MESSAGE value="AStar" />
+    <MESSAGE value="TStar" />
+    <MESSAGE value="DFS" />
+    <MESSAGE value="BFS" />
+    <MESSAGE value="Finally" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finally" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/model/MainTest.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/model/MainTest.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/model/GraphImpl.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/io/TwoDimGraphDotIO.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="id == 1" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/io/TwoDimGraphGxlWriter.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/model/ObservableGraphImpl.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/factory/SearchFactory.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/algorithm/SearchResultImpl.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/io/TwoDimGraphDotIO.java</url>
+          <line>216</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/io/TwoDimGraphGxlReader.java</url>
+          <line>67</line>
+          <properties class="de.jpp.io.TwoDimGraphGxlReader" method="readAnnotation">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/de/jpp/io/LabelMapGraphGxlWriter.java</url>
+          <line>33</line>
+          <properties class="de.jpp.io.LabelMapGraphGxlWriter" method="writeEdge">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>id == 1</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>10</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Graphs</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>10</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>jdom-2.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

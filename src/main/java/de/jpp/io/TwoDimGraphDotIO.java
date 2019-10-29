@@ -1,0 +1,232 @@
+package de.jpp.io;
+
+import de.jpp.factory.GraphFactory;
+import de.jpp.io.interfaces.GraphReader;
+import de.jpp.io.interfaces.GraphWriter;
+import de.jpp.io.interfaces.ParseException;
+import de.jpp.model.TwoDimGraph;
+import de.jpp.model.XYNode;
+import de.jpp.model.interfaces.Edge;
+import de.jpp.model.interfaces.Graph;
+
+import java.io.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class TwoDimGraphDotIO implements GraphReader<XYNode, Double, TwoDimGraph, String> , GraphWriter<XYNode, Double, TwoDimGraph, String> {
+
+
+    @Override
+    public TwoDimGraph read(String input) throws ParseException {
+        try {
+            String[] array = input.split("\n");
+            //check for digraph{}
+            Pattern digraph = Pattern.compile("^\\w{0}\\s*digraph\\w{0}\\s*\\{\\s*");
+            Pattern endDiagraph = Pattern.compile("\\s*\\}\\s*$");
+            Matcher matcher1 = digraph.matcher(input);
+            Matcher matcher2 = endDiagraph.matcher(input);
+            boolean first = matcher1.find();
+            boolean second = matcher2.find();
+            if (!first || !second){
+                throw new ParseException("invalid Dot-File");
+            }
+
+            //start reading nodes
+            GraphFactory graphFactory = new GraphFactory();
+            TwoDimGraph twoDimGraph = graphFactory.createNewTwoDimGraph();
+            Map<Integer,XYNode> nodes = new HashMap<>();
+            for (String line: array){
+                parseLine(twoDimGraph,nodes,line);
+            }
+            return twoDimGraph;
+        }catch (Exception e){
+            throw new ParseException("ParseException while reading Dot-File");
+        }
+
+
+    }
+
+    @Override
+    public String write(TwoDimGraph graph) throws ParseException {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("digraph{ \n");
+
+        Map<XYNode,Integer> nodesId = new HashMap<>();
+        Collection<XYNode> nodes = graph.getNodes();
+
+        //Nodes
+        int i = 1;
+        for (XYNode node: nodes){
+            nodesId.put(node,i);
+            if (node.getLabel().contains(" ")){
+                stringBuilder.append("  ").append(i).append(" [label=\"").append(node.getLabel()).append("\"");
+
+            }
+            else {
+                stringBuilder.append("  ").append(i).append(" [label=").append(node.getLabel());
+            }
+            stringBuilder.append(" x=").append(node.getX()).append(" y=").append(node.getY()).append("] \n");
+            i++;
+
+        }
+        stringBuilder.append("\n");
+        //Edges
+        for(Edge<XYNode,Double> edge : graph.getEdges()){
+           stringBuilder.append("   ").append(nodesId.get(edge.getStart())).append(" -> ").append(nodesId.get(edge.getDestination())).append(" [dist=").append(edge.getAnnotation().get()).append("] \n");
+        }
+        stringBuilder.append("}");
+
+        return stringBuilder.toString();
+    }
+
+    private void parseLine(TwoDimGraph graph, Map<Integer, XYNode> nodes, String line) throws ParseException {
+        Pattern idPattern = Pattern.compile("\\d+");
+        Matcher idMatcher = idPattern.matcher(line);
+        if (!line.isEmpty() && idMatcher.find()){
+            if (line.contains("dist")){
+                parseEdge(graph,nodes,line);
+            }
+            else {
+                parseNode(graph, nodes, line);
+            }
+        }
+
+    }
+
+    private void parseNode(TwoDimGraph graph, Map<Integer, XYNode> nodes, String line) throws ParseException {
+        Pattern nodeId = Pattern.compile("^\\s*\\d+\\s+");
+        Matcher nodeIdMathcer = nodeId.matcher(line);
+        boolean test = nodeIdMathcer.find();
+        String idString = nodeIdMathcer.group();
+        idString = idString.replaceAll("\\s","");
+        int id = Integer.parseInt(idString);
+        try {
+            Map<String,String> attribute = parseAttribute(line);
+            String label = "";
+            double x = 0;
+            double y = 0;
+            for (Map.Entry<String,String> map: attribute.entrySet()) {
+                if (map.getKey().equals("label")){
+                    label = map.getValue();
+                }else if (map.getKey().equals("x")){
+                    x = Double.parseDouble(map.getValue());
+                }else {
+                    y = Double.parseDouble(map.getValue());
+                }
+            }
+            XYNode res = new XYNode(label,x,y);
+            nodes.put(id,res);
+            graph.addNode(res);
+        } catch (Exception e) {
+            throw new ParseException("invalid node information");
+        }
+    }
+
+    private void parseEdge(TwoDimGraph graph, Map<Integer, XYNode> nodes, String line){
+        //Start node
+        Pattern startP = Pattern.compile("\\d+\\s*->");
+        Matcher startPMatcher = startP.matcher(line);
+        startPMatcher.find();
+        String startString = startPMatcher.group();
+        startString = startString.replaceAll("[^\\d]","");
+        int start = Integer.parseInt(startString);
+
+        //Destination Node
+        Pattern destP = Pattern.compile("->\\s*\\d+");
+        Matcher destPMatcher = destP.matcher(line);
+        destPMatcher.find();
+        String destString = destPMatcher.group();
+        destString = destString.replaceAll("[^\\d]","");
+        int dest = Integer.parseInt(destString);
+
+        //Annotation
+        Pattern annotationP = Pattern.compile("\\[\\s*dist=\\d+\\.?\\d*\\s*\\]");
+        Matcher annotationPMatcher = annotationP.matcher(line);
+        annotationPMatcher.find();
+        String annotationString = annotationPMatcher.group();
+        annotationString = annotationString.replaceAll("[^(\\d)(\\.)]","");
+        Double annotation = Double.parseDouble(annotationString);
+
+//        Edge<XYNode,Double> res = new Edge<>(nodes.get(start),nodes.get(dest), Optional.of(annotation));
+        graph.addEdge(nodes.get(start),nodes.get(dest), Optional.of(annotation));
+
+    }
+
+    private Map<String,String> parseAttribute(String line) throws ParseException {
+        Map<String,String> result = new HashMap<>();
+
+        //LABEL
+        //check if label is valid
+        Pattern nodeLabelOhne = Pattern.compile("label\\s*=([^\"])\\w*[^(\")(\\])]");        //label\\s*=([^\"']).*\\]?
+        Pattern nodeLabelMit =  Pattern.compile("label\\s*=\\\".*\\\"");
+        Matcher nodeLabelOhneMatcher = nodeLabelOhne.matcher(line);
+        Matcher nodeLabelMitMatcher = nodeLabelMit.matcher(line);
+        boolean first = nodeLabelOhneMatcher.find();
+        boolean second =nodeLabelMitMatcher.find();
+        if (!first && !second){
+            throw new ParseException();
+        }
+        //allocate label
+        if (first){
+            String label = nodeLabelOhneMatcher.group();
+            label = label.replace("label=","");
+            label = label.replace(" ", "");
+            result.put("label",label);
+        }
+        if (second){
+            String label = nodeLabelMitMatcher.group();
+            label = label.substring(0,label.length()-1);
+            label = label.replaceAll("label\\s*=\\\"","");
+
+            result.put("label",label);
+        }
+
+        //X
+        Pattern nodeX = Pattern.compile("x\\s*=\\s*\\d+\\.?\\d*");
+        Matcher nodeXMatcher = nodeX.matcher(line);
+        nodeXMatcher.find();
+        String x = nodeXMatcher.group();
+        x = x.replace(" ", "");
+        x = x.replace("x=", "");
+        result.put("x",x);
+
+        //Y
+        Pattern nodeY = Pattern.compile("y\\s*=\\s*\\d+\\.?\\d*");
+        Matcher nodeYMatcher = nodeY.matcher(line);
+        nodeYMatcher.find();
+        String y = nodeYMatcher.group();
+        y = y.replace(" ", "");
+        y = y.replace("y=", "");
+        result.put("y",y);
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        File file = new File("TestFiles/dot/valid/annoying.dot");
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+            String input = new String(inputStream.readAllBytes());
+            TwoDimGraphDotIO twoDimGraphDotIO = new TwoDimGraphDotIO();
+            TwoDimGraph twoDimGraph = twoDimGraphDotIO.read(input);
+            System.out.println(true);
+
+            FileOutputStream f = new FileOutputStream("TestFiles/testTwoDimGraphDotIO.txt");
+            f.write(twoDimGraphDotIO.write(twoDimGraph).getBytes());
+
+            File file2 = new File("TestFiles/testTwoDimGraphDotIO.txt");
+            InputStream inputStream2 = new FileInputStream(file2);
+            String input2 = new String(inputStream2.readAllBytes());
+            TwoDimGraph twoDimGraph2 = twoDimGraphDotIO.read(input);
+            System.out.println(twoDimGraph.equals(twoDimGraph2));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

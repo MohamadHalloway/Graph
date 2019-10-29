@@ -1,0 +1,100 @@
+package de.jpp.algorithm;
+
+import de.jpp.algorithm.interfaces.NodeStatus;
+import de.jpp.algorithm.interfaces.ObservableSearchResult;
+import de.jpp.algorithm.interfaces.SearchAlgorithm;
+import de.jpp.algorithm.interfaces.SearchResult;
+import de.jpp.algorithm.strategy.SearchStopStrategy;
+import de.jpp.factory.SearchStopFactory;
+import de.jpp.model.interfaces.Edge;
+import de.jpp.model.interfaces.Graph;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.function.BiConsumer;
+
+
+public class DepthFirstSearch<N, A, G extends Graph<N, A>> implements SearchAlgorithm<N, A, G> {
+    private static boolean stopped = false;
+    private G graph;
+    private N start;
+    private SearchResultImpl<N,A> result = new SearchResultImpl<>();
+    private static double distance = 0;
+
+    public DepthFirstSearch(G graph, N start) { //todo second search doesn't work and sequence opening of the isn't clear on the GUI
+        if (graph == null || start == null) {
+            throw new IllegalArgumentException("Graph or start IS NULL");
+        }
+        this.graph = graph;
+        this.start = start;
+        for (N node: graph.getNodes()){
+            result.initNode(node);
+        }
+
+    }
+
+    private boolean expand(N node , SearchStopStrategy<N> strategy){
+        if (stopped || node == null){     //if should stop
+            return false;
+        }
+        result.setOpen(node);
+        result.setClosed(node);
+        for (Edge<N,A> edge : graph.getNeighbours(node)) {
+                if (strategy.stopSearch(node)){
+                    stopped = true;  //stop()
+                    break;
+                }
+                N dest = edge.getDestination();
+                if (result.getNodeStatus(dest) == NodeStatus.UNKOWN){
+                    result.setInformation(dest,new NodeInformation<>(edge,distance++));
+                    expand(dest,strategy);
+                }
+            }
+//        if(stopped){
+//                return false;
+//            }
+            return true;
+    }
+
+
+
+    @Override
+    public SearchResult<N, A> findPaths(SearchStopStrategy<N> type) {
+        result.clear();
+        result.setInformation(start,new NodeInformation<>(null,distance++));
+        if (type != null){
+            expand(start,type);
+        }
+        return result;
+    }
+
+    @Override
+    public SearchResult<N, A> findAllPaths() {
+        result.clear();
+        result.setInformation(start,new NodeInformation<>(null,distance++));
+        SearchStopFactory factory = new SearchStopFactory();
+        expand(start,factory.expandAllNodes());
+        return result;
+    }
+
+    @Override
+    public ObservableSearchResult<N, A> getSearchResult() {
+        return result;
+    }
+
+    @Override
+    public N getStart() {
+        return start;
+    }
+
+    @Override
+    public G getGraph() {
+        return graph;
+    }
+
+    @Override
+    public void stop() {
+        stopped = true;
+    }
+}

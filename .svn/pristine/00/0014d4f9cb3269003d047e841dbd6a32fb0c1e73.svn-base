@@ -1,0 +1,106 @@
+package de.jpp.algorithm;
+
+import de.jpp.algorithm.interfaces.NodeStatus;
+import de.jpp.algorithm.interfaces.ObservableSearchResult;
+import de.jpp.algorithm.interfaces.SearchAlgorithm;
+import de.jpp.algorithm.interfaces.SearchResult;
+import de.jpp.algorithm.strategy.SearchStopStrategy;
+import de.jpp.factory.SearchFactory;
+import de.jpp.factory.SearchStopFactory;
+import de.jpp.model.interfaces.Edge;
+import de.jpp.model.interfaces.Graph;
+
+import java.util.LinkedList;
+
+public abstract class BreadthFirstSearchTemplate<N, A, G extends Graph<N, A>> implements SearchAlgorithm<N, A, G> {
+    private boolean stopped = false;
+    private G graph;
+    private N start;
+    private SearchResultImpl<N,A> result = new SearchResultImpl<>();
+    private LinkedList<N> queue = new LinkedList<>();
+
+    public BreadthFirstSearchTemplate(G graph, N start) {
+        if (graph == null || start == null) {
+            throw new IllegalArgumentException("Graph or start IS NULL");
+        }
+        this.graph = graph;
+        this.start = start;
+        initialize();
+    }
+
+    public boolean expand(SearchStopStrategy<N> strategy){
+        if (stopped){
+//            result.setClosed(start);
+            stopped = false;
+            return false;
+        }
+     while (!queue.isEmpty()){
+         N node = extractNode(result,queue);
+         queue.remove(node);
+         if(strategy.stopSearch(node) || stopped){
+             result.setClosed(node);
+             break;
+         }
+         for (Edge<N,A> edge : graph.getNeighbours(node)) {
+             N dest = edge.getDestination();
+                if (result.getNodeStatus(dest) != NodeStatus.CLOSED){
+                    queue.add(dest);
+                }
+                realx(result,edge);
+            }
+
+            result.setClosed(node);
+            if (stopped){
+                stopped = false;
+                break;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public SearchResult<N,A> findPaths(SearchStopStrategy<N> strategy){
+        initialize();
+        result.setOpen(start);
+        result.setInformation(start,new NodeInformation<>(null,0));
+        queue.addLast(start);
+        expand(strategy);
+        return result;
+    }
+    @Override
+    public SearchResult<N,A> findAllPaths(){
+        SearchStopFactory factory = new SearchStopFactory();
+        return findPaths(factory.expandAllNodes());
+    }
+
+    @Override
+    public ObservableSearchResult<N, A> getSearchResult() {
+        return result;
+    }
+
+    @Override
+    public N getStart() {
+        return start;
+    }
+
+    @Override
+    public G getGraph() {
+        return graph;
+    }
+
+    @Override
+    public void stop() {
+        stopped = true;
+    }
+
+    public void initialize(){
+        for (N node: graph.getNodes()){
+            result.initNode(node);
+        }
+
+    }
+
+    protected abstract void realx(SearchResultImpl<N, A> result, Edge<N, A> edge);
+
+    protected abstract N extractNode(SearchResultImpl<N, A> result, LinkedList<N> queue);
+}

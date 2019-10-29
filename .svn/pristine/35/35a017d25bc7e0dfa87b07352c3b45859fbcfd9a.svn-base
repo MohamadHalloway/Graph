@@ -1,0 +1,52 @@
+package de.jpp.model;
+
+import java.util.Objects;
+
+public class XYNode {
+
+    /**
+     * Creates a new XYNode with the specified label and coordinate
+     *
+     * @param label the label
+     * @param x     the x value of the coordinate
+     * @param y     the y value of the coordinate
+     */
+    public XYNode(String label, double x, double y) {
+        throw new UnsupportedOperationException("not supported yet!");
+    }
+
+    /**
+     * Returns the label of this node
+     * @return
+     */
+    public String getLabel() {
+        throw new UnsupportedOperationException("not supported yet!");
+    }
+
+    /**
+     * Returns the x coordinate of this node
+     * @return
+     */
+    public double getX() {
+        throw new UnsupportedOperationException("not supported yet!");
+    }
+
+    /**
+     * Returns the y coordinate of this node
+     * @return
+     */
+    public double getY() {
+        throw new UnsupportedOperationException("not supported yet!");
+    }
+
+    /**
+     * Calculates the euclidian distance to the specified XYNode
+     *
+     * @param other the node to calculate the distance to
+     * @return the euclidian distance to the specified XYNode
+     */
+    public double euclidianDistTo(XYNode other) {
+        throw new UnsupportedOperationException("not supported yet!");
+    }
+
+}

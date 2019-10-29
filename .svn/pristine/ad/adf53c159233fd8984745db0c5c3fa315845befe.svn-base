@@ -1,0 +1,47 @@
+package de.jpp.model.interfaces;
+
+import java.util.Optional;
+
+public class Edge<N, A> {
+
+
+    /**
+     * Creates a new edge with the specified start node, destination node and annotation
+     *
+     * @param start      the start node
+     * @param dest       the destination node
+     * @param annotation the annotation
+     */
+    public Edge(N start, N dest, Optional<A> annotation) {
+        throw new UnsupportedOperationException("not supported yet!");
+    }
+
+    /**
+     * Returns the start node of this edge
+     *
+     * @return the start node of this edge
+     */
+    public N getStart() {
+        throw new UnsupportedOperationException("not supported yet!");
+    }
+
+    /**
+     * Returns the destination node of this edge
+     *
+     * @return the destination node of this edge
+     */
+    public N getDestination() {
+        throw new UnsupportedOperationException("not supported yet!");
+    }
+
+    /**
+     * Returns the annotation of this edge
+     *
+     * @return the annotation of this edge
+     */
+    public Optional<A> getAnnotation() {
+        throw new UnsupportedOperationException("not supported yet!");
+    }
+
+
+}

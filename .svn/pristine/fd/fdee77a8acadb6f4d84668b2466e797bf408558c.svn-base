@@ -1,0 +1,18 @@
+package de.jpp.io;
+
+import de.jpp.io.interfaces.GraphReader;
+import de.jpp.io.interfaces.ParseException;
+import de.jpp.model.interfaces.Graph;
+
+public class GxlReaderTemplate<N, A, G extends Graph<N, A>, String> implements GraphReader<N, A, G, String> {
+
+
+    public Graph<N, A> readNodeId(N node,String string){
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public G read(String input) throws ParseException {
+        throw new IllegalStateException();
+    }
+}

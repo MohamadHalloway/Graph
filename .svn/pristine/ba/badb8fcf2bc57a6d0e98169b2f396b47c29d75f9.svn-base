@@ -1,0 +1,39 @@
+package de.jpp.algorithm;
+
+import de.jpp.algorithm.interfaces.ObservableSearchResult;
+import de.jpp.algorithm.interfaces.SearchAlgorithm;
+import de.jpp.algorithm.interfaces.SearchResult;
+import de.jpp.algorithm.interfaces.SearchStopStrategy;
+import de.jpp.model.interfaces.Graph;
+
+public class DepthFirstSearch implements SearchAlgorithm {
+    @Override
+    public SearchResult findPaths(SearchStopStrategy type) {
+        return null;
+    }
+
+    @Override
+    public SearchResult findAllPaths() {
+        return null;
+    }
+
+    @Override
+    public ObservableSearchResult getSearchResult() {
+        return null;
+    }
+
+    @Override
+    public Object getStart() {
+        return null;
+    }
+
+    @Override
+    public Graph getGraph() {
+        return null;
+    }
+
+    @Override
+    public void stop() {
+
+    }
+}

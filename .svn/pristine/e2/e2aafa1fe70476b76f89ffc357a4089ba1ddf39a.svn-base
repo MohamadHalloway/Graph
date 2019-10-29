@@ -1,0 +1,34 @@
+package de.jpp.io;
+
+import de.jpp.model.TwoDimGraph;
+import de.jpp.model.XYNode;
+import de.jpp.model.interfaces.Edge;
+import org.jdom2.Element;
+
+
+public class TwoDimGraphGxlWriter extends GxlWriterTemplate<XYNode, Double, TwoDimGraph, String> {
+    public TwoDimGraphGxlWriter() {
+    }
+
+
+    @Override
+    public Element writeNode(XYNode node) {
+        return null;
+    }
+
+    @Override
+    public Element writeEdge(Edge<XYNode, Double> edge) {
+        return null;
+    }
+
+    @Override
+    public String calculateId(XYNode node) {
+        return null;
+    }
+
+    @Override
+    public String claculateId(Edge<XYNode, Double> edge) {
+        return null;
+    }
+
+}

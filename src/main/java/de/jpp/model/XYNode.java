@@ -1,0 +1,81 @@
+package de.jpp.model;
+
+import java.util.Objects;
+
+public class XYNode {
+
+    private String label;
+    private double x;
+    private double y;
+    /**
+     * Creates a new XYNode with the specified label and coordinate
+     *
+     * @param label the label
+     * @param x     the x value of the coordinate
+     * @param y     the y value of the coordinate
+     */
+    public XYNode(String label, double x, double y) {
+        if (label == null){
+            throw new IllegalArgumentException("Label is null");
+        }
+        this.label = label;
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Returns the label of this node
+     * @return
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * Returns the x coordinate of this node
+     * @return
+     */
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * Returns the y coordinate of this node
+     * @return
+     */
+    public double getY() {
+        return y;
+    }
+
+    /**
+     * Calculates the euclidian distance to the specified XYNode
+     *
+     * @param other the node to calculate the distance to
+     * @return the euclidian distance to the specified XYNode
+     */
+    public double euclidianDistTo(XYNode other) {
+        double newX = Math.abs(this.x - other.x);
+        double newY = Math.abs(this.y - other.y);
+        return Math.sqrt(Math.pow(newX,2) + Math.pow(newY,2));
+    }
+
+    @Override
+    public String toString() {
+        return label + " (" + x + "," + y + ')';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof XYNode)) return false;
+        XYNode xyNode = (XYNode) o;
+        return Double.compare(xyNode.x, x) == 0 &&
+                Double.compare(xyNode.y, y) == 0 &&
+                Objects.equals(label, xyNode.label);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(label, x, y);
+    }
+}

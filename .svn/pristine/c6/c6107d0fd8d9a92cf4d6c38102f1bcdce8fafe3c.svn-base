@@ -1,0 +1,41 @@
+package de.jpp.algorithm;
+
+
+import de.jpp.model.interfaces.Edge;
+import de.jpp.model.interfaces.WeightedGraph;
+import java.util.LinkedList;
+
+public class DijkstraSearch<N,G extends WeightedGraph<N,Double>> extends BreadthFirstSearchTemplate<N,Double,G> {
+    public DijkstraSearch(G graph, N start) {
+        super(graph, start);
+    }
+
+    @Override
+    protected void realx(SearchResultImpl<N, Double> result, Edge<N,Double> edge) {
+        N v = edge.getDestination();
+        N u = edge.getStart();
+        double gewicht = result.getInformation(u).getDistance() + edge.getAnnotation().get();
+        if (result.getInformation(v).getDistance() > gewicht){
+            result.setOpen(v);
+            result.setInformation(v,new NodeInformation<>(edge,gewicht));
+        }
+    }
+
+    @Override
+    protected N extractNode(SearchResultImpl<N, Double> result, LinkedList<N> queue) {
+        if (queue.isEmpty()){
+            throw new IllegalArgumentException("queue is empty");
+        }
+        N res = null;
+        double min = Double.MAX_VALUE;
+        for (N node: queue) {
+            double temp = result.getInformation(node).getDistance();
+            if (temp < min){
+                min = temp;
+                res = node;
+            }
+        }
+        return res;
+    }
+
+}

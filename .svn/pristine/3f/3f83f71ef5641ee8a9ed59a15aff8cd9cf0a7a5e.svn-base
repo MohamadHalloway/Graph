@@ -1,0 +1,128 @@
+package de.jpp.algorithm;
+
+import de.jpp.algorithm.NodeInformation;
+import de.jpp.algorithm.interfaces.NodeStatus;
+import de.jpp.algorithm.interfaces.ObservableSearchResult;
+import de.jpp.algorithm.interfaces.SearchResult;
+import de.jpp.model.interfaces.Edge;
+import java.util.*;
+import java.util.function.BiConsumer;
+
+public class SearchResultImpl<N,A> implements ObservableSearchResult<N,A> {
+    private Map<N, NodeStatus> statusMap = new HashMap<>();
+    private Map<N, NodeInformation<N,A>> infoMap = new HashMap<>();
+    private List<BiConsumer<N, SearchResult<N,A>>> onOpen = new ArrayList<>();
+    private List<BiConsumer<N,SearchResult<N,A>>> onClose = new ArrayList<>();
+
+
+    @Override
+    public void addNodeOpenedListener(BiConsumer<N, SearchResult<N, A>> onOpen) {
+        this.onOpen.add(onOpen);
+    }
+
+    @Override
+    public void removeNodeOpenedListener(BiConsumer<N, SearchResult<N, A>> onOpen) {
+        this.onOpen.remove(onOpen);
+    }
+
+    @Override
+    public void addNodeClosedListener(BiConsumer<N, SearchResult<N, A>> onClose) {
+        this.onClose.add(onClose);
+    }
+
+    @Override
+    public void removeNodeClosedListener(BiConsumer<N, SearchResult<N, A>> onClose) {
+        this.onClose.remove(onClose);
+    }
+
+    @Override
+    public NodeStatus getNodeStatus(N node) {
+        return statusMap.get(node);
+    }
+
+    @Override
+    public Optional<Edge<N, A>> getPredecessor(N node) {
+        return Optional.of(infoMap.get(node).getPredecessor());
+    }
+
+    public NodeInformation<N,A> getInformation(N node){
+        return infoMap.get(node);
+    }
+
+    public void setInformation(N node, NodeInformation<N,A> info){
+        infoMap.replace(node,info);
+    }
+
+    @Override
+    public Collection<N> getAllKnownNodes() {
+        ArrayList<N> knownNodes = new ArrayList<>();
+        for (N node : statusMap.keySet()){
+            if (!statusMap.get(node).equals(NodeStatus.UNKOWN)){
+                 knownNodes.add(node);
+            }
+        }
+        return knownNodes;
+    }
+
+    @Override
+    public Collection<N> getAllOpenNodes() {
+        ArrayList<N> openNodes = new ArrayList<>();
+        for (N node : statusMap.keySet()){
+            if (statusMap.get(node).equals(NodeStatus.OPEN)){
+                openNodes.add(node);
+            }
+        }
+        return openNodes;
+    }
+
+    @Override
+    public void setClosed(N node) {
+        statusMap.replace(node,NodeStatus.CLOSED);
+    }
+
+    @Override
+    public void setOpen(N node) {
+        statusMap.replace(node,NodeStatus.OPEN);
+    }
+
+    @Override
+    public void clear() {
+        statusMap.clear();
+        infoMap.clear();
+    }
+
+    @Override
+    public Optional<List<Edge<N, A>>> getPathTo(N dest) {           //todo was macht getPathTo?
+        if (dest == null || !infoMap.containsKey(dest) || infoMap.get(dest) == null){
+            return Optional.empty();
+        }
+        Edge<N,A> destEdge = infoMap.get(dest).getPredecessor();
+
+        Optional<List<Edge<N,A>>> res = Optional.of(new ArrayList<>());
+        res.get().add(destEdge);
+        N vorherig = dest;
+        while(true){
+            N aktuell = infoMap.get(vorherig).getPredecessor().getStart();
+            Edge<N,A> temp = infoMap.get(aktuell).getPredecessor();
+            if (temp == null){
+                break;
+            }
+            res.get().add(temp);
+            vorherig = aktuell;
+        }
+        return res;
+    }
+
+    public void close(N node , NodeInformation<N,A> nodeInformation){
+        statusMap.replace(node,NodeStatus.CLOSED);
+    }
+
+    public void open(N node , NodeInformation<N,A> nodeInformation){
+        statusMap.replace(node,NodeStatus.OPEN);
+    }
+
+    public void initNode(N node){
+        infoMap.put(node,null);
+        statusMap.put(node,NodeStatus.UNKOWN);
+    }
+}

@@ -1,0 +1,185 @@
+package de.jpp.maze;
+
+import java.util.Random;
+
+public class MazeImpl implements Maze {
+    private int width;
+    private int height;
+    private boolean[][] cell;
+    static int testRandom = 0;
+
+
+    public MazeImpl(int width, int height) {         //empty maze
+        this.width = width;
+        this.height = height;
+        int newWidth = (width * 2) - 1;
+        int newHeight = (height * 2) - 1;
+        emptyMaze(newWidth, newHeight);
+    }
+
+    public MazeImpl(Random ran, int width, int height){
+        this.width = width;
+        this.height = height;
+        int newWidth = (width * 2) - 1;
+        int newHeight = (height * 2) - 1;
+        emptyMaze(newWidth, newHeight);
+        unterteileMaze(ran,0,0,newWidth - 1,newHeight - 1);
+
+    }
+
+    private boolean unterteileMaze(Random ran, int xStart,int yStart, int xEnd, int yEnd){
+        if (xStart == xEnd || yStart == yEnd){          //wenn nur ein Gang
+            return true;
+        }
+        int newWidth = xEnd - xStart + 1;
+        int newHeight = yEnd - yStart + 1;
+        if (newWidth > newHeight){
+            unterteileHorizonal(ran,xStart,xEnd,yStart,yEnd);
+        }
+        else if (newWidth < newHeight){
+            unterteileVertikal(ran,xStart,xEnd,yStart,yEnd);
+        }
+        else {
+            if (ran.nextBoolean()){
+                unterteileHorizonal(ran,xStart,xEnd,yStart,yEnd);
+            }
+            else {
+                unterteileVertikal(ran,xStart,xEnd,yStart,yEnd);
+            }
+        }
+        return true;
+    }
+
+    private void unterteileVertikal(Random ran, int xStart, int xEnd, int yStart, int yEnd) {
+        int VWinSpalte= (yEnd - yStart + 1) / 2;
+        int VWinZeile = ((xEnd - xStart) / 2) + 1;
+        int rnd1 = yStart + (ran.nextInt(VWinSpalte) * 2) + 1;
+        int rnd2 = ran.nextInt(VWinZeile - 1);
+        int index = 0;
+        for (int i = xStart; i <= xEnd; i += 2) {
+            if (index != rnd2){
+                cell[rnd1][i] = true;
+            }
+            index++;
+        }
+//        testRandom += 2;
+//        System.out.println("Vertical and Random: " + testRandom);
+//        System.out.println(toString());
+        unterteileMaze(ran,xStart,yStart,xEnd,rnd1-1);
+        unterteileMaze(ran,xStart,rnd1+1,xEnd,yEnd);
+    }
+
+    private void unterteileHorizonal(Random ran, int xStart, int xEnd, int yStart, int yEnd) {
+        int HWinZeile  = (xEnd - xStart + 1) / 2;
+        int HWinSpalte = ((yEnd - yStart) / 2) + 1;
+        int rnd1 = xStart + (ran.nextInt(HWinZeile) * 2) + 1;
+        int rnd2 = ran.nextInt(HWinSpalte - 1);
+        int index = 0;
+        for (int i = yStart; i <= yEnd; i += 2) {
+            if (index != rnd2){
+                cell[i][rnd1] = true;
+            }
+            index++;
+        }
+//        testRandom += 2;
+//        System.out.println("Horizontal and Random: " + testRandom);
+//        System.out.println(toString());
+        unterteileMaze(ran,xStart,yStart,rnd1-1,yEnd); //links
+        unterteileMaze(ran,rnd1+1,yStart,xEnd,yEnd);  //rechts
+    }
+
+
+    private boolean emptyMaze(int width, int height){
+        if ((width == 1) || (height == 1)) {               //if maze is large enough to devide
+            return false;
+        }
+        cell = new boolean[height][width];
+        for (int y = 1; y < height; y += 2) {
+            for (int x = 1; x < width; x += 2) {
+                cell[y][x] = true;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void setHWall(int x, int y, boolean wallActive) {
+        int newX = (2*x) + 1;
+        int newY = (2*y);
+        cell[newY][newX] = wallActive;
+    }
+
+    @Override
+    public void setVWall(int x, int y, boolean wallActive) {
+        int newX = (2*x);
+        int newY = (2*y) + 1;
+        cell[newY][newX] = wallActive;
+    }
+
+    @Override
+    public void setAllWalls(boolean wallActive) {
+        //set HWalls
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width - 1 ; j++) {
+                setHWall(j,i,wallActive);
+            }
+        }
+        for (int i = 0; i < height - 1; i++) {
+            for (int j = 0; j < width; j++) {
+                setVWall(j,i,wallActive);
+            }
+        }
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public boolean isHWallActive(int x, int y) {
+        int newX = (2*x) + 1;
+        int newY = (2*y);
+        return cell[newY][newX];
+    }
+
+    @Override
+    public boolean isVWallActive(int x, int y) {
+        int newX = (2*x);
+        int newY = (2*y) + 1;
+        return cell[newY][newX];
+    }
+    @Override
+    public boolean[][] getCell() {
+        return cell;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (boolean[] line : cell) {
+            for (boolean Zelle : line) {
+                if (Zelle) {
+                    stringBuilder.append((char) 0x2588 + "" + (char) 0x2588);
+                } else {
+                    stringBuilder.append((char) 0x2591 + "" + (char) 0x2591);
+                }
+            }
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    public static void main(String[] args) {
+        MazeImpl maze = new MazeImpl(new Random(),9,7);
+//        maze.mazeOnConsole(maze.getCell());
+    }
+
+
+
+}

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gxl><graph><node id="id1"><attr name="description"><string>n1</string></attr></node><node id="id2"><attr name="description"><string>n2</string></attr></node><edge id="id3" from="id1" to="id2" /></graph></gxl>

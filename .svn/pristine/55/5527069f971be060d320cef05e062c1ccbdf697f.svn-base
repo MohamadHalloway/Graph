@@ -1,0 +1,21 @@
+package de.jpp.algorithm.strategy;
+
+import de.jpp.algorithm.strategy.SearchStopStrategy;
+
+public class NToZeroStrategy<N> implements SearchStopStrategy<N> {
+
+    private int maxNodeCount;
+
+    public NToZeroStrategy(int maxNodeCount) {
+        this.maxNodeCount = maxNodeCount;
+    }
+
+    @Override
+    public boolean stopSearch(N lastClosedNode) {
+        maxNodeCount--;
+        if (maxNodeCount <= 0){
+            return true;
+        }
+        return false;
+    }
+}

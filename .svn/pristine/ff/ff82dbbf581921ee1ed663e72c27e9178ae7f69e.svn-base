@@ -1,0 +1,33 @@
+package de.jpp.algorithm;
+
+import de.jpp.algorithm.interfaces.SearchAlgorithm;
+import de.jpp.model.interfaces.Edge;
+import de.jpp.model.interfaces.Graph;
+
+public abstract class BreadthFirstSearchTemplate<N, A, G extends Graph<N, A>> implements SearchAlgorithm<N, A, G> {
+    private boolean stopped = false;
+    private G graph;
+    private N start;
+    private SearchResultImpl<N,A> result;
+
+    public BreadthFirstSearchTemplate(G graph, N start) {
+        if (graph == null || start == null) {
+            throw new IllegalArgumentException("Graph or start IS NULL");
+        }
+        this.graph = graph;
+        this.start = start;
+    }
+
+    protected NodeInformation<N,A> getNodeInformation(Edge<N,A> edge, double distance) {
+        return null;
+    }
+
+    private void openIfShorter(N node, NodeInformation info){
+
+    }
+
+    @Override
+    public void stop() {
+        stopped = true;
+    }
+}

@@ -1,0 +1,4 @@
+package de.jpp.io;
+
+public class TwoDimGraphGxlWriter extends GxlWriterTemplate {
+}

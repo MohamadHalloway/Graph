@@ -1,0 +1,186 @@
+package de.jpp.model;
+
+import de.jpp.model.interfaces.Edge;
+import de.jpp.model.interfaces.Graph;
+import java.util.*;
+
+public class GraphImpl<N,A> implements Graph<N,A> {
+
+    private List<N> nodes;
+    private Map<N, HashSet<Edge<N,A>>> edges;
+
+
+    public GraphImpl(List<N> nodes, Map<N, HashSet<Edge<N, A>>> edges) {
+        this.nodes = nodes;
+        this.edges = edges;
+    }
+
+    @Override
+    public boolean addNode(N node) {
+        for(N knoten: this.nodes){
+            if (knoten.equals(node)){
+                return false;           //if the node already in the graph
+            }
+        }
+        nodes.add(node);
+        edges.put(node,new HashSet<Edge<N,A>>());
+        return true;
+    }
+
+    @Override
+    public boolean addNodes(Collection<? extends N> nodes) {
+        boolean res = false;
+        for (N knoten : nodes){
+            if (addNode(knoten)){       //if any node been added to the graph
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public boolean addNodes(N... nodes) {
+        boolean res = false;
+        for (N knoten : nodes){
+            if (addNode(knoten)){    //if any node been added to the graph
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Collection<N> getNodes() {
+        return new ArrayList<>(nodes);
+    }
+
+    @Override
+    public Edge<N,A> addEdge(N start, N destination, Optional<A> annotation) {
+        Edge<N,A> res = new Edge<>(start,destination,annotation);
+        addNodes(start,destination);            //add both nodes if they didn't exist in the graph
+        edges.get(start).add(res);              //add the edge to the start node
+        return res;
+    }
+
+    @Override
+    public boolean removeEdge(Edge<N,A> edge) {
+        if (edge == null){
+            return false;
+        }
+        return edges.get(edge.getStart()).remove(edge);
+    }
+
+    @Override
+    public Collection<Edge<N,A>> getNeighbours(N node) {
+        if (!nodes.contains(node)){ throw new IllegalArgumentException("node is not in the map"); }
+        return edges.get(node);
+    }
+
+    @Override
+    public Collection<Edge<N,A>> getReachableFrom(N node) {
+        if (!nodes.contains(node)){ throw new IllegalArgumentException("node is not in the map");}
+        Collection<Edge<N,A>> res = new ArrayList<>();
+        for (Map.Entry<N, HashSet<Edge<N, A>>> mymap : edges.entrySet()){
+            for (Edge<N,A> edge: mymap.getValue()){
+                if (edge.getDestination().equals(node)){
+                    res.add(edge);
+                }
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Collection<Edge<N,A>> getEdges() {
+        Collection<Edge<N,A>> res = new ArrayList<>();
+        for (Map.Entry<N, HashSet<Edge<N, A>>> mymap : edges.entrySet()) {
+            res.addAll(mymap.getValue());
+        }
+        return res;
+    }
+
+    @Override
+    public boolean removeNode(N node){
+        if (!nodes.contains(node)){
+            return false;
+        }
+        nodes.remove(node);
+        edges.remove(node);
+        for (Map.Entry<N, HashSet<Edge<N, A>>> entry : edges.entrySet()) {
+            entry.getValue().removeIf(e -> e.getDestination().equals(node));
+        }
+        return true;
+    }
+
+    @Override
+    public boolean removeNodes(Collection<? extends N> nodes) {
+        boolean res = false;
+        for (N knoten: nodes){
+            if (removeNode(knoten)){
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public boolean removeNodes(N... nodes) {
+        boolean res = false;
+        for (N knoten: nodes){
+            if (removeNode(knoten)){
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public void clear() {
+        nodes.clear();
+        edges.clear();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<N, HashSet<Edge<N,A>>> myMap : edges.entrySet()){
+            stringBuilder.append("Node: " + myMap.getKey() + "has edges: " + myMap.getValue() + " | ");
+        }
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GraphImpl)) return false;
+        GraphImpl<?, ?> graph = (GraphImpl<?, ?>) o;
+        return nodes.equals(graph.nodes) &&
+                edges.equals(graph.edges);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodes, edges);
+    }
+
+    //    public boolean equals(GraphImpl<N,A> o) {
+//        for (N node: o.getNodes()){
+//            if (!nodes.contains(node)){
+//                return false;
+//            }
+//        }
+//        for (Map.Entry<N, HashSet<Edge<N, A>>> map: edges.entrySet()){
+//            for (Edge<N,A> edge : map.getValue()){
+//                if (!edges.get(map.getKey()).contains(edge)){
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(nodes, edges);
+//    }
+}

@@ -1,0 +1,20 @@
+package de.jpp.io;
+
+import de.jpp.io.interfaces.GraphReader;
+import de.jpp.io.interfaces.GraphWriter;
+import de.jpp.io.interfaces.ParseException;
+import de.jpp.model.interfaces.Graph;
+
+public class TwoDimGraphDotIO implements GraphReader , GraphWriter {
+
+
+    @Override
+    public Graph read(Object input) throws ParseException {
+        return null;
+    }
+
+    @Override
+    public Object write(Graph graph) {
+        return null;
+    }
+}

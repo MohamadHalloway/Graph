@@ -1,0 +1,22 @@
+package de.jpp.io;
+
+import de.jpp.io.interfaces.GraphWriter;
+import de.jpp.model.interfaces.Edge;
+import de.jpp.model.interfaces.Graph;
+
+import javax.swing.text.Element;
+
+public abstract class GxlWriterTemplate<N, A, G extends Graph<N, A>, String> implements GraphWriter<N, A, G, java.lang.String> {
+    @Override
+    public java.lang.String write(Graph graph) {
+        return null;
+    }
+
+    public abstract Element writeNode(N node);
+
+    public abstract Element writeEdge(Edge<N,A> edge);
+
+    public abstract java.lang.String calculateId(N node);
+
+    public abstract java.lang.String claculateId(Edge<N,A> edge);
+}

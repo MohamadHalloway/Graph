@@ -1,0 +1,65 @@
+package de.jpp.io;
+
+import de.jpp.factory.GraphFactory;
+import de.jpp.io.interfaces.ParseException;
+import de.jpp.model.TwoDimGraph;
+import de.jpp.model.XYNode;
+import org.jdom2.Element;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Parameter;
+import java.util.Optional;
+
+public class TwoDimImgReader extends  GxlReaderTemplate<XYNode,Double, TwoDimGraph, BufferedImage>{
+
+    @Override
+    public TwoDimGraph read(BufferedImage image) throws ParseException{
+
+        return null;
+    }
+
+
+    @Override
+    public TwoDimGraph createGraph() {
+        GraphFactory graphFactory = new GraphFactory();
+        return graphFactory.createNewTwoDimGraph();
+    }
+
+    @Override
+    public String readNodeId(XYNode node, Element element) {
+        return null;
+    }
+
+    @Override
+    public XYNode readNode(Element element) {
+        return null;
+    }
+
+    @Override
+    public Optional<Double> readAnnotation(Element element) {
+        return Optional.empty();
+    }
+
+
+    public static void main(String[] args) {
+        BufferedImage img = null;
+        File f = null;
+
+        //read image
+        try{
+            f = new File("TestFiles/img/valid/maze_small.png");
+            img = ImageIO.read(f);
+            img.getRGB(0,0);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+
+        // some code goes here...
+
+    }
+}
+
+

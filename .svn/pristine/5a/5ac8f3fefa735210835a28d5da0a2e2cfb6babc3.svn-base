@@ -1,0 +1,11 @@
+package de.jpp.io;
+
+import de.jpp.io.interfaces.GraphWriter;
+import de.jpp.model.interfaces.Graph;
+
+public class GxlWriterTemplate implements GraphWriter {
+    @Override
+    public Object write(Graph graph) {
+        return null;
+    }
+}

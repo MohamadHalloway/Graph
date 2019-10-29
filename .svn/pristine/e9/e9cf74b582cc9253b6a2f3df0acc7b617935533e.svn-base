@@ -1,0 +1,8 @@
+package de.jpp.io;
+
+import de.jpp.io.GxlReaderTemplate;
+
+public class TwoDimGraphGxlReader extends GxlReaderTemplate {
+    public TwoDimGraphGxlReader() {
+    }
+}

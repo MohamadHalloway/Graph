@@ -1,0 +1,229 @@
+package de.jpp.model;
+
+import de.jpp.model.interfaces.Edge;
+import de.jpp.model.interfaces.Graph;
+import de.jpp.model.interfaces.ObservableGraph;
+
+import java.util.*;
+import java.util.function.Consumer;
+
+public class ObservableGraphImpl<N, A> implements ObservableGraph<N, A> {
+
+    Graph<N, A> graph;
+
+    private List<Consumer<N>> nodeAddedListener = new ArrayList<>();
+    private List<Consumer<N>> nodeRemovedListener = new ArrayList<>();
+    private List<Consumer<Edge<N, A>>> edgeAddedListener = new ArrayList<>();
+    private List<Consumer<Edge<N, A>>> edgeRemovedListener = new ArrayList<>();
+
+    private List<Consumer<Collection<Edge<N, A>>>> neighboursListedListener = new ArrayList<>();
+    private List<Consumer<Collection<Edge<N, A>>>> reachableListedListener = new ArrayList<>();
+    private List<Consumer<Collection<Edge<N, A>>>> edgesListedListener = new ArrayList<Consumer<Collection<Edge<N, A>>>>();
+    private List<Consumer<Collection<N>>>          nodesListedListener = new ArrayList<>();
+
+
+    public ObservableGraphImpl(Graph<N, A> graph) {
+        this.graph = graph;
+    }
+
+    @Override
+    public void addNodeAddedListener(Consumer<N> listener) {
+        nodeAddedListener.add(listener);
+    }
+
+    @Override
+    public void addNodeRemovedListener(Consumer<N> listener) {
+        nodeRemovedListener.add(listener);
+    }
+
+    @Override
+    public void addEdgeAddedListener(Consumer<Edge<N, A>> listener) {
+        edgeAddedListener.add(listener);
+    }
+
+    @Override
+    public void addEdgeRemovedListener(Consumer<Edge<N, A>> listener) {
+        edgeRemovedListener.add(listener);
+    }
+
+    @Override
+    public void removeNodeAddedListener(Consumer<N> listener) {
+        nodeAddedListener.remove(listener);
+    }
+
+    @Override
+    public void removeNodeRemovedListener(Consumer<N> listener) {
+        nodeRemovedListener.remove(listener);
+    }
+
+    @Override
+    public void removeEdgeAddedListener(Consumer<Edge<N, A>> listener) {
+        edgeAddedListener.remove(listener);
+    }
+
+    @Override
+    public void removeEdgeRemovedListener(Consumer<Edge<N, A>> listener) {
+        edgeRemovedListener.remove(listener);
+    }
+
+    @Override
+    public void addNeighboursListedListener(Consumer<Collection<Edge<N, A>>> listener) {
+        neighboursListedListener.add(listener);
+    }
+
+    @Override
+    public void addReachableListedListener(Consumer<Collection<Edge<N, A>>> listener) {
+        reachableListedListener.add(listener);
+    }
+
+    @Override
+    public void addNodesListedListener(Consumer<Collection<N>> listener) {
+        nodesListedListener.add(listener);
+    }
+
+    @Override
+    public void addEdgesListedListener(Consumer<Collection<Edge<N, A>>> listener) {
+        edgesListedListener.add(listener);
+    }
+
+    @Override
+    public void removeNeighboursListedListener(Consumer<Collection<Edge<N, A>>> listener) {
+        neighboursListedListener.remove(listener);
+    }
+
+    @Override
+    public void removeReachableListedListener(Consumer<Collection<Edge<N, A>>> listener) {
+        reachableListedListener.remove(listener);
+    }
+
+    @Override
+    public void removeNodesListedListener(Consumer<Collection<N>> listener) {
+        nodesListedListener.remove(listener);
+    }
+
+    @Override
+    public void removeEdgesListedListener(Consumer<Collection<Edge<N, A>>> listener) {
+        edgesListedListener.remove(listener);
+    }
+
+    @Override
+    public boolean addNode(N node) {
+        if (graph.addNode(node)) {
+            nodeAddedListener.forEach(c -> c.accept(node));
+//            nodeAddedListener.add(n -> System.out.println("Node: " + node.toString() + " has been added"));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addNodes(Collection<? extends N> nodes) {
+        boolean res = false;
+        for (N node : nodes) {
+            if (addNode(node)) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public boolean addNodes(N... nodes) {
+        boolean res = false;
+        for (N node : nodes) {
+            if (addNode(node)) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Collection<N> getNodes() {
+        nodesListedListener.forEach(c -> c.accept(graph.getNodes()));
+        return graph.getNodes();
+    }
+
+    @Override
+    public Edge<N, A> addEdge(N start, N destination, Optional<A> annotation) {
+        Edge<N, A> res = graph.addEdge(start, destination, annotation);
+        edgeAddedListener.forEach(c -> c.accept(res));
+        return res;
+    }
+
+    @Override
+    public boolean removeEdge(Edge<N, A> edge) {
+        if (graph.removeEdge(edge)) {
+            edgeRemovedListener.forEach(c -> c.accept(edge));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Collection<Edge<N, A>> getNeighbours(N node) {
+        Collection<Edge<N, A>> res = graph.getNeighbours(node);
+        neighboursListedListener.forEach(c -> c.accept(res));
+        return res;
+    }
+
+    @Override
+    public Collection<Edge<N, A>> getReachableFrom(N node) {
+        Collection<Edge<N, A>> res = graph.getReachableFrom(node);
+        reachableListedListener.forEach(c -> c.accept(res));
+        return res;
+    }
+
+    @Override
+    public Collection<Edge<N, A>> getEdges() {
+        Collection<Edge<N,A>> res = graph.getEdges();
+        edgesListedListener.forEach(c -> c.accept(res));
+        return res;
+    }
+
+    @Override
+    public boolean removeNode(N node) {
+        if (!graph.getNodes().contains(node)){
+            return false;
+        }
+        nodeRemovedListener.forEach(c -> c.accept(node));  //nodeListener
+        Collection<Edge<N, A>> neighbours = graph.getNeighbours(node);
+        Collection<Edge<N, A>> reachableFrom = graph.getReachableFrom(node);
+        for (Edge<N, A> edge: neighbours){                  //EdgeListener
+            edgeRemovedListener.forEach(c -> c.accept(edge));
+        }
+        for (Edge<N, A> edge: reachableFrom){               //EdgeListener
+            edgeRemovedListener.forEach(c -> c.accept(edge));
+        }
+        graph.removeNode(node);
+        return true;
+    }
+
+    @Override
+    public boolean removeNodes(Collection<? extends N> nodes) {
+        boolean res = false;
+        for (N node : nodes) {
+            if (removeNode(node)) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public boolean removeNodes(N... nodes) {
+        boolean res = false;
+        for (N node : nodes) {
+            if (removeNode(node)) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public void clear() {
+        removeNodes(graph.getNodes());
+        graph.clear();
+    }
+}

@@ -1,0 +1,130 @@
+package de.jpp.io;
+
+import de.jpp.factory.GraphFactory;
+import de.jpp.io.interfaces.ParseException;
+import de.jpp.model.TwoDimGraph;
+import de.jpp.model.XYNode;
+import de.jpp.model.interfaces.Edge;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+import org.xml.sax.SAXParseException;
+
+
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+public class TwoDimGraphGxlReader extends GxlReaderTemplate<XYNode, Double, TwoDimGraph,String> {
+
+    public TwoDimGraphGxlReader() {
+    }
+
+    @Override
+    public TwoDimGraph createGraph() {
+        GraphFactory graphFactory = new GraphFactory();
+        return graphFactory.createNewTwoDimGraph();
+    }
+
+    @Override
+    public String readNodeId(XYNode node, Element element) {
+        return element.getAttributeValue("id");
+    }
+
+    @Override
+    public XYNode readNode(Element element) {
+        String label = "";
+        double x = 0.0;
+        double y = 0.0;
+        for (Element child : element.getChildren()){
+            String temp = child.getAttributeValue("name");
+            switch (temp){
+                case "description":
+                    label = child.getChildText("string");
+                    break;
+                case "x":
+                    x = Double.parseDouble(child.getChildren().get(0).getText());
+                    break;
+                case "y":
+                    y = Double.parseDouble(child.getChildren().get(0).getText());
+                    break;
+                default:
+                    throw new IllegalArgumentException("attribute couldn't be defined");
+            }
+        }
+
+        return new XYNode(label,x,y);
+    }
+
+    @Override
+    public Optional<Double> readAnnotation(Element element) {
+        String annotaion = element.getChild("attr").getChildText("float");
+        if (annotaion == null){
+            throw new IllegalArgumentException("Edge has no float attribute");
+        }
+        if (annotaion.length() == 0){
+            return Optional.empty();
+        }
+        return Optional.of(Double.parseDouble(annotaion));
+    }
+
+//    public Edge<XYNode,Double> addEdge(Element element, Map<String,XYNode> map){
+//        try {
+//            XYNode start = map.get(element.getAttributeValue("from"));
+//            XYNode dest = map.get(element.getAttributeValue("to"));
+//            Optional<Double> annotation = Optional.empty();
+//            for (Element child: element.getChildren()){
+//                if (child.getAttributeValue("name").equals("cost")){
+//                    annotation = Optional.of(Double.parseDouble(child.getChildText("float")));
+//                }
+//            }
+//            Edge<XYNode,Double> res = new Edge<>(start,dest,annotation);
+//            twoDimGraph.addEdge(start,dest,annotation);
+//            return res;
+//
+//        }catch (Exception e){
+//            throw new IllegalArgumentException("GXL-File is invalid");
+//        }
+//
+//    }
+
+    public String getAttrValue(List<Element> elements, String input){
+        String res = "";
+        for (Element element : elements){
+           Attribute attribute = element.getAttribute("name");
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        File file = new File("TestFiles/gxl/valid/maze.gxl");
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String input = null;
+        try {
+            input = new String(inputStream.readAllBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SAXBuilder builder = new SAXBuilder();
+
+        try {
+           TwoDimGraphGxlReader twoDimGraphGxlReader = new TwoDimGraphGxlReader();
+           TwoDimGraph twoDimGraph = twoDimGraphGxlReader.read(input);
+            System.out.println(true);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+
